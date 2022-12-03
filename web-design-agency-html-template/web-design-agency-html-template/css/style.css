@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #009CFF;
+    --primary: #042830;
     --secondary: #777777;
     --light: #F8F8F8;
     --dark: #252525;
@@ -29,7 +29,22 @@
     opacity: 1;
 }
 
+.bg-primary {
+    background-color: #ff484f !important;
+}
+.text-primary{
+    color: #ff484f !important;
+}
 
+.bg-dark{
+    background-color: #042830 !important;
+}
+.btn-primary{
+    background-color: #042830 !important;
+}
+.btn-primary:hover{
+    background-color: #ff484f !important;
+}
 /*** Button ***/
 .btn {
     font-weight: 500;
@@ -487,5 +502,5 @@
 }
 
 .footer .copyright a:hover {
-    color: var(--primary);
+    color:#ff484f;
 }
