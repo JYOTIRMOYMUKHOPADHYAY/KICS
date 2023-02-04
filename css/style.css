@@ -581,3 +581,12 @@
 .footer .copyright a:hover {
     color:#ff484f;
 }
+.hideonMobile {
+    visibility: visible;
+}
+
+@media only screen and (max-width: 600px) {
+    .hideonMobile {
+        visibility: hidden;
+    }
+  }
