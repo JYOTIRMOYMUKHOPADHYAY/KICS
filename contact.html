@@ -185,37 +185,38 @@
                     <!-- <p class="text-center mb-4">The contact form is currently inactive. Get a functional and working
                         contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code
                         and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p> -->
-                    <form>
+                    <form id="my-form" action="https://formspree.io/f/mgebkgol" method="POST">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" name="name">
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" id="email" placeholder="Your Email" name="email">
                                     <label for="email">Your Email</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject" name="message">
                                     <label for="subject">Subject</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="Leave a message here" id="message"
-                                        style="height: 200px"></textarea>
+                                        style="height: 200px" name="message"></textarea>
                                     <label for="message">Message</label>
                                 </div>
                             </div>
                             <div class="col-12 text-center">
-                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Send
+                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit" id="my-form-button">Send
                                     Message</button>
                             </div>
+                            <p id="my-form-status" style="color: red;"></p>
                         </div>
                     </form>
                 </div>
@@ -271,7 +272,7 @@
                         <a class="text-white" href="" style="padding-right: 20px;">Follow Us</a>
                         <a class="btn btn-square btn-outline-secondary rounded-circle me-1 text-white" href="https://www.instagram.com/KCS.IT/"><i
                                 class="fab fa-instagram"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-0 text-white" href="https://www.linkedin.com/in/kcs-it-startup-consulting-company-333940267/"><i
+                        <a class="btn btn-square btn-outline-secondary rounded-circle me-0 text-white" href="https://www.linkedin.com/in/kcs-it-service-and-consulting-333940267/"><i
                                 class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
@@ -333,7 +334,39 @@
         <i class="bi bi-whatsapp"></i>
     </a>
 
+<script>
+    var form = document.getElementById("my-form");
+    
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("my-form-status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "Thanks for your submission!";
+          form.reset()
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form"
+            }
+          })
+        }
+      }).catch(error => {
+        status.innerHTML = "Oops! There was a problem submitting your form"
+      });
+    }
+    form.addEventListener("submit", handleSubmit)
 
+</script>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
